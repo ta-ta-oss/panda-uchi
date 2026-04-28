@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, doc, setDoc, onSnapshot, getDoc } from 'firebase/firestore';
+import { createRoot } from 'react-dom/client';
 
 // --- Firebase Initialization ---
 let app, auth, db, appId;
@@ -1363,3 +1364,6 @@ export default function App() {
     </div>
   );
 }
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<App />);
