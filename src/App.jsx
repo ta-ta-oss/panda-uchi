@@ -1,5 +1,21 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { createRoot } from 'react-dom/client';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, collection, doc, setDoc, onSnapshot, getDoc } from 'firebase/firestore';
+
+// --- Firebase Initialization ---
+let app, auth, db, appId;
+try {
+  const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+  if (firebaseConfig) {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+  }
+} catch (e) {
+  console.error("Firebase init error", e);
+}
 
 // BGM/Audioの自動再生エラーを安全に回避するためのオーバーライド
 const originalAudioPlay = window.HTMLAudioElement.prototype.play;
@@ -1347,6 +1363,3 @@ export default function App() {
     </div>
   );
 }
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<App />);
