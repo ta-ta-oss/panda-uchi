@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { createRoot } from 'react-dom/client';
 
 // BGM/Audioの自動再生エラーを安全に回避するためのオーバーライド
 const originalAudioPlay = window.HTMLAudioElement.prototype.play;
@@ -2221,3 +2222,6 @@ export default function App() {
     </div>
   );
 }
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<App />);
